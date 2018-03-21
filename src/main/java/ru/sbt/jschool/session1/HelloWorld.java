@@ -30,8 +30,8 @@ public class HelloWorld {
                     break;
                 }
             }
-            if(flag) {}
-                else{
+            if(!flag)
+            {
                 Map<String,String> sv= System.getenv();
                 if(sv.containsKey("JSCHOOl1_COUNT")){
                     int n = Integer.parseInt(sv.get("JSCHOOl1_COUNT"));
@@ -47,7 +47,7 @@ public class HelloWorld {
                             BufferedReader br = new BufferedReader(new InputStreamReader(fileIn));
                             String strLine = br.readLine();
                             if (strLine.contains((CharSequence) "JSCHOOl1_COUNT=")){
-                                int n = Integer.parseInt(args[0].substring("JSCHOOl1_COUNT=".length()));
+                                int n = Integer.parseInt(strLine.substring("JSCHOOl1_COUNT=".length()));
                                 for (int i = 0; i < n; i++)
                                     System.out.println("Hello World!!!");
                             }
@@ -56,10 +56,11 @@ public class HelloWorld {
                         }
                     }
                     else{
-                        System.out.println("Read manuals before using");
+                        System.out.println("Read manuals before using:");
+                        System.out.println("Three ways to set args: by argument, by system settings or by system environment variable!");
                     }
                 }
-                }
+            }
         }
     }
 }
