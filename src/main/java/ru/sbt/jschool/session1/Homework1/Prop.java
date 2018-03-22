@@ -18,14 +18,10 @@ public class Prop implements PropertyHelper{
         this.path = path;
         FileInputStream fileInputStream;
         prop = new Properties();
+        propFromArgs = new Properties();
         try {
             fileInputStream = new FileInputStream(path);
             prop.load(fileInputStream);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        propFromArgs = new Properties();
-        try {
             for (int i = 0; i < args.length; i++) {
                 InputStream input = new ByteArrayInputStream(args[i].getBytes("UTF8"));
                 propFromArgs.load(input);
@@ -36,7 +32,6 @@ public class Prop implements PropertyHelper{
     }
     @Override
     public String stringValue(String name) {
-
         if(propFromArgs.containsKey(name)) {
             result = propFromArgs.getProperty(name);
         }
