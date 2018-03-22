@@ -1,8 +1,6 @@
 package ru.sbt.jschool.session1.Homework1;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Map;
+import java.io.*;
 import java.util.Properties;
 
 /**
@@ -13,35 +11,45 @@ public class Prop implements PropertyHelper{
     String[] args;
     String path;
     String result = null;
+    Properties prop;
+    Properties propFromArgs;
     Prop(String[] args, String path){
         this.args = args;
         this.path = path;
+        FileInputStream fileInputStream;
+        prop = new Properties();
+        try {
+            fileInputStream = new FileInputStream(path);
+            prop.load(fileInputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        propFromArgs = new Properties();
+        try {
+            for (int i = 0; i < args.length; i++) {
+                InputStream input = new ByteArrayInputStream(args[i].getBytes("UTF8"));
+                propFromArgs.load(input);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     @Override
     public String stringValue(String name) {
-        if(args.length != 0) {
-            for (int i = 0; i <args.length; i++) {
-                if (args[i].contains(name)) {
-                    result = (args[i].substring(name.length()+1));
-                }
-            }
+
+        if(propFromArgs.containsKey(name)) {
+            result = propFromArgs.getProperty(name);
         }
         else{
-            if(path!=null) {
-                FileInputStream fileInputStream;
-                Properties prop = new Properties();
-                try {
-                    fileInputStream = new FileInputStream(path);
-                    prop.load(fileInputStream);
+            if(System.getProperties().containsKey(name)){
+                result = System.getProperties().get(name).toString();
+            }
+            else {
+                if (System.getenv().containsKey(name)) {
+                    result = System.getenv().get(name);
+                }
+                else{
                     result = prop.getProperty(name);
-                    if(result==null){
-                        Map<String,String> sv= System.getenv();
-                        if(sv.containsKey(name)){
-                            result = sv.get(name);
-                        }
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
             }
         }
