@@ -13,5 +13,6 @@ public class Problem3 {
         for (Map.Entry<String, String> entry : sv.entrySet()) {
             System.out.println("Variable = " + entry.getKey() + "; value = " + entry.getValue());
         }
+        System.out.println(sv.get("name"));
     }
 }

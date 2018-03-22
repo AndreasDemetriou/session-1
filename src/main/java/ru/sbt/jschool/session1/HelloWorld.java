@@ -10,7 +10,7 @@ import java.util.Map;
 public class HelloWorld {
     public static void main(String[] args) throws IOException {
         if(args.length != 0) {
-            if (args[0].contains((CharSequence) "JSCHOOl1_COUNT=")){
+            if (args[0].contains("JSCHOOl1_COUNT=")){
                 int n = Integer.parseInt(args[0].substring("JSCHOOl1_COUNT=".length()));
                 for (int i = 0; i < n; i++)
                     System.out.println("Hello World!!!");
@@ -19,7 +19,7 @@ public class HelloWorld {
         else{
             Enumeration e =System.getProperties().propertyNames();
             boolean flag = false;
-                        while( e.hasMoreElements() )
+            while(e.hasMoreElements())
             {
                 String prop = (String)e.nextElement();
                 if(prop.compareTo("JSCHOOl1_COUNT")==0) {
@@ -46,7 +46,7 @@ public class HelloWorld {
                             FileInputStream fileIn = new FileInputStream(s);
                             BufferedReader br = new BufferedReader(new InputStreamReader(fileIn));
                             String strLine = br.readLine();
-                            if (strLine.contains((CharSequence) "JSCHOOl1_COUNT=")){
+                            if (strLine.contains("JSCHOOl1_COUNT=")){
                                 int n = Integer.parseInt(strLine.substring("JSCHOOl1_COUNT=".length()));
                                 for (int i = 0; i < n; i++)
                                     System.out.println("Hello World!!!");
